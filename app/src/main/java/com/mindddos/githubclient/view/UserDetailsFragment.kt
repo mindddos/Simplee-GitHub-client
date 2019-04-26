@@ -17,6 +17,7 @@ import com.mindddos.githubclient.vm.UserDetailsVM
 import kotlinx.android.synthetic.main.fragment_user_details.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
+@Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
 class UserDetailsFragment : Fragment() {
     private val vm by viewModel<UserDetailsVM>()
 
