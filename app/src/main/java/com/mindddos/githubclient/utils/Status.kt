@@ -1,5 +1,5 @@
 package com.mindddos.githubclient.utils
 
 enum class Status {
-        RUNNING, FINISHED, ERROR
+        RUNNING, FINISHED, ERROR, NO_INTERNET
     }

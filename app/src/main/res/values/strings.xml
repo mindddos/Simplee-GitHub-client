@@ -7,4 +7,5 @@
     <string name="repos_count">Public repos: %1$s</string>
     <string name="followers">Followers: %1$s</string>
     <string name="following">Following: %1$s</string>
+    <string name="no_internet_alert">No internet. Check your connection and retry =]</string>
 </resources>

@@ -11,7 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class UserDetailsVM(private val api: GitHubApi) : ViewModel() {
-    val userLiveData = MutableLiveData<UserInfo>()
+    val userLiveData = MutableLiveData<UserInfo?>()
     val statusLiveData = SingleLiveEvent<Status>()
 
     fun loadUserDetails(userName: String) {
@@ -27,5 +27,11 @@ class UserDetailsVM(private val api: GitHubApi) : ViewModel() {
             userLiveData.postValue(api.getUserInfo(userName).await())
             statusLiveData.postValue(Status.FINISHED)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        // workaround for preventing pushing old data to new fragments
+        userLiveData.postValue(null)
     }
 }

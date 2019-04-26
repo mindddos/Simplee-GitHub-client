@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
     private var snackBar: Snackbar? = null
     private val vm by viewModel<SearchScreenVM>()
     private lateinit var rvAdapter: SearchResultsAdapter
@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 Status.ERROR -> {
                     showRetrySnackBar(getString(R.string.error_text))
+                    progress_bar.visibility = View.INVISIBLE
+                }
+                Status.NO_INTERNET -> {
+                    showRetrySnackBar(getString(R.string.no_internet_alert))
                     progress_bar.visibility = View.INVISIBLE
                 }
             }
