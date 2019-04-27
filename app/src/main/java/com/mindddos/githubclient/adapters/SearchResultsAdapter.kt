@@ -47,7 +47,7 @@ class SearchResultsAdapter(
                 .commit()
         }
 
-        val requestOptions = RequestOptions().placeholder(R.drawable.ic_photo_placeholder)
+        val requestOptions = RequestOptions().placeholder(R.drawable.ic_gh_logo)
 
         Glide.with(activity)
             .setDefaultRequestOptions(requestOptions)
@@ -55,13 +55,10 @@ class SearchResultsAdapter(
             .apply(RequestOptions.circleCropTransform())
             .into(holder.ivIcon)
         holder.tvUserName.text = items[position].login
-        holder.tvScore.text = Math.floor(items[position].score).toInt().toString()
     }
 
     class SearchResultVH(v: View) : RecyclerView.ViewHolder(v) {
         val ivIcon = v.iv_icon
         val tvUserName = v.tv_username
-        val tvScore = v.tv_score
-
     }
 }

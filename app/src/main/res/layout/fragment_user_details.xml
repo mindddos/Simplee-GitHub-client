@@ -8,6 +8,7 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:id="@+id/root"
+                android:paddingBottom="@dimen/center_margin"
                 android:layout_height="match_parent"
                 android:focusable="true">
 
@@ -28,7 +29,7 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="100dp"
                     android:layout_alignParentTop="true"
-                    tools:src="@drawable/ic_photo_placeholder"
+                    tools:src="@drawable/ic_gh_logo"
                     android:layout_centerHorizontal="true"
                     android:layout_height="100dp"/>
 
@@ -71,6 +72,7 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:id="@+id/iv_location"
+                        android:visibility="invisible"
                         app:srcCompat="@drawable/ic_location"
                         android:layout_height="wrap_content"/>
 

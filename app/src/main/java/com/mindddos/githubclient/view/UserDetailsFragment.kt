@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -76,7 +77,10 @@ class UserDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.userLiveData.observe(viewLifecycleOwner, Observer { userInfo -> userInfo?.let { renderUserInfo(it) } })
+        vm.userLiveData.observe(viewLifecycleOwner, Observer { userInfo ->
+            userInfo?.let {
+                activity?.findViewById<ImageView>(R.id.iv_location)?.visibility = View.VISIBLE
+                renderUserInfo(it) } })
         vm.statusLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 Status.RUNNING -> progress_bar.visibility = View.VISIBLE

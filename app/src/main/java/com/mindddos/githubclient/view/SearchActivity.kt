@@ -85,7 +85,10 @@ class SearchActivity : AppCompatActivity() {
                 // clearing focus from search view
                 sv_username.clearFocus()
 
-                query?.let { vm.searchForQuery(query) }
+                query?.let {
+                    lastQuery = query
+                    vm.searchForQuery(lastQuery)
+                }
 
                 return true
             }

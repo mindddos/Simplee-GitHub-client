@@ -56,12 +56,13 @@
                     android:layout_width="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/iv_placeholder"
-                    app:srcCompat="@drawable/ic_photo_placeholder"
+                    app:srcCompat="@drawable/ic_gh_logo"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_below="@id/iv_placeholder"
+                    android:layout_marginBottom="@dimen/center_margin"
                     android:layout_centerHorizontal="true"
                     android:text="@string/search_placeholder"
                     android:gravity="center"
