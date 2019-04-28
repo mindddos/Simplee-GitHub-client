@@ -9,15 +9,16 @@ import com.mindddos.githubclient.utils.SingleLiveEvent
 import com.mindddos.githubclient.utils.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class UserDetailsVM(private val api: GitHubApi) : ViewModel() {
     val userLiveData = MutableLiveData<UserWithRepos?>()
     val statusLiveEvent = SingleLiveEvent<Status>()
-
+    private var job: Job? = null
     fun loadUserDetails(userName: String) {
         statusLiveEvent.postValue(Status.RUNNING)
-        GlobalScope.launch(CoroutineExceptionHandler { _, t ->
+        job = GlobalScope.launch(CoroutineExceptionHandler { _, t ->
             run {
                 t.printStackTrace()
                 statusLiveEvent.postValue(Status.ERROR)
@@ -39,6 +40,7 @@ class UserDetailsVM(private val api: GitHubApi) : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         // workaround for preventing pushing old data to new fragments
+        job?.cancel()
         userLiveData.postValue(null)
     }
 }

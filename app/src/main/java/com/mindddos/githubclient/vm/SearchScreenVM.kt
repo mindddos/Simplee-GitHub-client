@@ -19,6 +19,10 @@ class SearchScreenVM(private val api: GitHubApi) : ViewModel() {
 
     fun searchForQuery(query: String) {
         statusLiveEvent.postValue(Status.RUNNING)
+        if (query == "") {
+            statusLiveEvent.postValue(Status.FINISHED)
+            return
+        }
         currentJob = GlobalScope.launch(CoroutineExceptionHandler { _, t ->
             run {
                 t.printStackTrace()
