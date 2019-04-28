@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:clickable="true"
-                android:background="@color/black_transparent"
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="match_parent"
-                android:focusable="true">
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_margin="50dp"
-            android:layout_centerInParent="true"
-            android:layout_height="wrap_content">
+            android:id="@+id/root"
+            android:layout_height="wrap_content"
+            >
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:padding="20dp"
+                android:id="@+id/user_info"
                 android:background="@android:color/white"
                 android:layout_height="wrap_content">
 
@@ -26,7 +23,7 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="100dp"
                     android:layout_alignParentTop="true"
-                    tools:src="@drawable/ic_photo_placeholder"
+                    tools:src="@drawable/ic_gh_logo"
                     android:layout_centerHorizontal="true"
                     android:layout_height="100dp"/>
 
@@ -34,6 +31,7 @@
                     android:layout_centerInParent="true"
                     android:theme="@style/ProgressDarkAccent"
                     android:id="@+id/progress_bar"
+                    android:visibility="invisible"
                     android:layout_width="@dimen/progress_bar_size"
                     android:layout_height="@dimen/progress_bar_size"/>
 
@@ -69,6 +67,7 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:id="@+id/iv_location"
+                        android:visibility="invisible"
                         app:srcCompat="@drawable/ic_location"
                         android:layout_height="wrap_content"/>
 
@@ -90,38 +89,39 @@
                     android:layout_below="@id/location"
                     android:layout_height="wrap_content"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/tv_repos_count"
-                    android:text="@string/repos_count"
-                    android:textSize="15sp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:layout_below="@id/tv_bio"
-                    android:layout_height="wrap_content"/>
-
 
             <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/tv_followers"
-                    android:text="@string/followers"
+                    tools:text="@string/followers"
                     android:textSize="15sp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:textColor="@android:color/black"
-                    android:layout_below="@id/tv_repos_count"
+                    android:layout_below="@id/tv_bio"
+                    android:layout_alignParentStart="true"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/tv_following"
-                    android:text="@string/following"
+                    tools:text="@string/following"
                     android:textSize="15sp"
-                    android:layout_marginTop="10dp"
                     android:textColor="@android:color/black"
-                    android:layout_below="@id/tv_followers"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@id/tv_followers"
                     android:layout_height="wrap_content"/>
 
         </RelativeLayout>
-    </ScrollView>
 
-</RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/rv_repos"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_repo"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:layout_below="@id/user_info"
+                android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+</ScrollView>

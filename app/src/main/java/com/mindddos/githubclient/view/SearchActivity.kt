@@ -3,12 +3,10 @@ package com.mindddos.githubclient.view
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.mindddos.githubclient.R
 import com.mindddos.githubclient.adapters.SearchResultsAdapter
 import com.mindddos.githubclient.repository.remote.models.UserItem
@@ -18,8 +16,8 @@ import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
-    private var snackBar: Snackbar? = null
+class SearchActivity : SnackBarActivity() {
+
     private val vm by viewModel<SearchScreenVM>()
     private lateinit var rvAdapter: SearchResultsAdapter
     private var lastQuery: String = ""
@@ -48,7 +46,11 @@ class MainActivity : AppCompatActivity() {
                     progress_bar.visibility = View.INVISIBLE
                 }
                 Status.ERROR -> {
-                    showRetrySnackBar(getString(R.string.error_text))
+                    showRetrySnackBar(search_results, getString(R.string.error_text)) { vm.searchForQuery(lastQuery) }
+                    progress_bar.visibility = View.INVISIBLE
+                }
+                Status.NO_INTERNET -> {
+                    showRetrySnackBar(search_results,getString(R.string.no_internet_alert)){vm.searchForQuery(lastQuery)}
                     progress_bar.visibility = View.INVISIBLE
                 }
             }
@@ -76,12 +78,13 @@ class MainActivity : AppCompatActivity() {
     private fun setupSearchView() {
         sv_username.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // clearing screen from fragment if present
-                supportFragmentManager.popBackStackImmediate()
                 // clearing focus from search view
                 sv_username.clearFocus()
 
-                query?.let { vm.searchForQuery(query) }
+                query?.let {
+                    lastQuery = query
+                    vm.searchForQuery(lastQuery)
+                }
 
                 return true
             }
@@ -95,12 +98,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupRvItems(items: List<UserItem>) {
         rvAdapter.setItems(items)
         rv_results.smoothScrollToPosition(0)
-    }
-
-    private fun showRetrySnackBar(text: String) {
-        snackBar = Snackbar.make(search_results, text, Snackbar.LENGTH_INDEFINITE)
-            .setAction(getString(R.string.retry)) { vm.searchForQuery(lastQuery) }
-        snackBar?.show()
     }
 
 

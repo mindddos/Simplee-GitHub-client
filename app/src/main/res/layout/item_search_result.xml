@@ -12,7 +12,7 @@
     <ImageView
             android:layout_width="@dimen/user__list_icon_size"
             android:id="@+id/iv_icon"
-            tools:src="@drawable/ic_photo_placeholder"
+            tools:src="@drawable/ic_gh_logo"
             android:layout_height="@dimen/user__list_icon_size"/>
 
     <TextView
@@ -27,31 +27,4 @@
             android:layout_alignTop="@id/iv_icon"
             android:layout_height="wrap_content"/>
 
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:id="@+id/score"
-            android:layout_alignStart="@id/tv_username"
-            android:layout_alignBottom="@id/iv_icon"
-            android:layout_toEndOf="@id/iv_icon"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:id="@+id/iv_star"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_star"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_score"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/colorGray"
-                android:textSize="18sp"
-                tools:text="31244"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
 </RelativeLayout>

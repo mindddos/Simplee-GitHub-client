@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHubClient</string>
+    <string name="app_name">Simple GitHub client</string>
     <string name="search_hint">Search user</string>
     <string name="retry">Retry</string>
     <string name="error_text">An error occurred while searching =[</string>
@@ -7,4 +7,5 @@
     <string name="repos_count">Public repos: %1$s</string>
     <string name="followers">Followers: %1$s</string>
     <string name="following">Following: %1$s</string>
+    <string name="no_internet_alert">No internet. Check your connection and retry =]</string>
 </resources>
