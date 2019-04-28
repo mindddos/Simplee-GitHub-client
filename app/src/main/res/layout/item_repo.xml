@@ -16,7 +16,7 @@
             android:textColorLink="@color/colorPrimaryDark"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/tv_name"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/info"
             android:textSize="17sp"
@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@id/tv_name"
             tools:text="Java"
+            android:textStyle="italic"
             android:layout_marginTop="5dp"
             android:id="@+id/tv_lang"
             android:layout_height="wrap_content"/>

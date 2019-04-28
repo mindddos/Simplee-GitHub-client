@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,13 +16,11 @@ import com.mindddos.githubclient.repository.remote.models.UserWithRepos
 import com.mindddos.githubclient.utils.Const
 import com.mindddos.githubclient.utils.Status
 import com.mindddos.githubclient.vm.UserDetailsVM
-import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.activity_user_details.*
-import kotlinx.android.synthetic.main.activity_user_details.progress_bar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-class UserDetailsActivity : AppCompatActivity() {
+class UserDetailsActivity : SnackBarActivity() {
     private val vm by viewModel<UserDetailsVM>()
     private val adapter by lazy { RepoListAdapter(listOf(), this) }
 
@@ -40,12 +37,23 @@ class UserDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_details)
 
         vm.userLiveData.observe(this, Observer { data -> data?.let { renderData(it) } })
-        vm.statusLiveData.observe(this, Observer {
+        vm.statusLiveEvent.observe(this, Observer {
             when (it) {
                 Status.RUNNING -> progress_bar.visibility = View.VISIBLE
                 Status.FINISHED -> progress_bar.visibility = View.INVISIBLE
-                Status.ERROR -> progress_bar.visibility = View.INVISIBLE
-                Status.NO_INTERNET -> TODO()
+                Status.ERROR -> {
+                    progress_bar.visibility = View.INVISIBLE
+                    showRetrySnackBar(root, getString(R.string.error_text)) {
+                        vm.loadUserDetails(intent.extras!!.getString(Const.USERNAME_KEY, ""))
+                    }
+                }
+                Status.NO_INTERNET -> {
+                    progress_bar.visibility = View.INVISIBLE
+                    showRetrySnackBar(root, getString(R.string.no_internet_alert)) {
+                        vm.loadUserDetails(intent.extras!!.getString(Const.USERNAME_KEY, ""))
+                    }
+
+                }
             }
         })
 
@@ -59,7 +67,9 @@ class UserDetailsActivity : AppCompatActivity() {
         rv_repos.layoutManager = layoutManager
         rv_repos.addItemDecoration(dividerItemDecoration)
 
-        vm.loadUserDetails(intent.extras!!.getString(Const.USERNAME_KEY, ""))
+
+        if (savedInstanceState == null)
+            vm.loadUserDetails(intent.extras!!.getString(Const.USERNAME_KEY, ""))
     }
 
     private fun renderData(data: UserWithRepos) {

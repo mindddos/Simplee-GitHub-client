@@ -25,6 +25,7 @@
         <ProgressBar
                 android:layout_centerInParent="true"
                 android:theme="@style/ProgressDarkAccent"
+                android:visibility="invisible"
                 android:id="@+id/progress_bar"
                 android:layout_width="@dimen/progress_bar_size"
                 android:layout_height="@dimen/progress_bar_size"/>
