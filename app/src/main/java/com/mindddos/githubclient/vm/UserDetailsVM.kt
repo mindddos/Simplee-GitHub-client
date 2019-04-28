@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mindddos.githubclient.repository.remote.GitHubApi
 import com.mindddos.githubclient.repository.remote.models.UserInfo
+import com.mindddos.githubclient.repository.remote.models.UserWithRepos
 import com.mindddos.githubclient.utils.SingleLiveEvent
 import com.mindddos.githubclient.utils.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -11,7 +12,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class UserDetailsVM(private val api: GitHubApi) : ViewModel() {
-    val userLiveData = MutableLiveData<UserInfo?>()
+    val userLiveData = MutableLiveData<UserWithRepos?>()
     val statusLiveData = SingleLiveEvent<Status>()
 
     fun loadUserDetails(userName: String) {
@@ -24,7 +25,9 @@ class UserDetailsVM(private val api: GitHubApi) : ViewModel() {
 
         }) {
 
-            userLiveData.postValue(api.getUserInfo(userName).await())
+            val userInfo = api.getUserInfo(userName).await()
+            val repositories = api.getUserRepos(userName).await()
+            userLiveData.postValue(UserWithRepos(userInfo, repositories))
             statusLiveData.postValue(Status.FINISHED)
         }
     }

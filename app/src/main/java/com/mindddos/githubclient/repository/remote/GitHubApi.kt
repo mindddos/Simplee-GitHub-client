@@ -1,5 +1,6 @@
 package com.mindddos.githubclient.repository.remote
 
+import com.mindddos.githubclient.repository.remote.models.Repository
 import com.mindddos.githubclient.repository.remote.models.UserInfo
 import com.mindddos.githubclient.repository.remote.models.UsersSearchResult
 import kotlinx.coroutines.Deferred
@@ -14,4 +15,7 @@ interface GitHubApi {
 
     @GET("/users/{username}")
     fun getUserInfo(@Path("username") username: String): Deferred<UserInfo>
+
+    @GET("/users/{username}/repos")
+    fun getUserRepos(@Path("username") username: String): Deferred<List<Repository>>
 }

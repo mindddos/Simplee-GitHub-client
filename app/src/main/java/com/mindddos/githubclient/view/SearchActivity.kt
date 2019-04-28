@@ -80,8 +80,6 @@ class SearchActivity : AppCompatActivity() {
     private fun setupSearchView() {
         sv_username.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // clearing screen from fragment if present
-                supportFragmentManager.popBackStackImmediate()
                 // clearing focus from search view
                 sv_username.clearFocus()
 

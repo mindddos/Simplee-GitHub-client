@@ -20,7 +20,7 @@
     </style>
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.Light.SearchView">
-        <item name="android:textColorHint">@color/textColorGray</item>
+        <item name="android:textColorHint">@color/colorLightGray</item>
         <item name="searchIcon">@drawable/ic_search</item>
         <item name="android:background">@color/colorGray</item>
         <item name="android:queryBackground">@android:color/white</item>
